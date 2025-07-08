@@ -1,0 +1,26 @@
+{
+  "manifest_version": 3,
+  "name": "Zintar",
+  "version": "1.0",
+  "description": "A simple Chrome extension using React",
+  "action": {
+    "default_title": "Toggle Zintar",
+    "default_icon": {
+      "16": "logo.png",
+      "48": "logo.png",
+      "128": "logo.png"
+    }
+  },
+  "side_panel": {
+    "default_path": "index.html"
+  },
+  "permissions": ["sidePanel", "activeTab", "tabs"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "icons": {
+    "16": "logo.png",
+    "48": "logo.png",
+    "128": "logo.png"
+  }
+}
