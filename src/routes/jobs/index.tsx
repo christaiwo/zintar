@@ -2,7 +2,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { createFileRoute } from "@tanstack/react-router";
-import { Clock, DollarSign, Filter, Heart, Star } from "lucide-react";
+import { Clock, DollarSign, Heart, Star } from "lucide-react";
 
 export const Route = createFileRoute("/jobs/")({
   component: RouteComponent,
