@@ -29,6 +29,17 @@
       "matches": ["<all_urls>"],
       "js": ["workers/content.js"],
       "run_at": "document_idle"
+    },
+    {
+      "matches": ["<all_urls>"],
+      "js": ["injects/content-script.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["zintar.css"],
+      "matches": ["<all_urls>"]
     }
   ]
 }

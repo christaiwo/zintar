@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as LandingRouteImport } from './routes/landing'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as TestIndexRouteImport } from './routes/test/index'
 import { Route as TemplatesIndexRouteImport } from './routes/templates/index'
 import { Route as SettingsIndexRouteImport } from './routes/settings/index'
 import { Route as ProposalsIndexRouteImport } from './routes/proposals/index'
@@ -24,6 +25,11 @@ const LandingRoute = LandingRouteImport.update({
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TestIndexRoute = TestIndexRouteImport.update({
+  id: '/test/',
+  path: '/test/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TemplatesIndexRoute = TemplatesIndexRouteImport.update({
@@ -54,6 +60,7 @@ export interface FileRoutesByFullPath {
   '/proposals': typeof ProposalsIndexRoute
   '/settings': typeof SettingsIndexRoute
   '/templates': typeof TemplatesIndexRoute
+  '/test': typeof TestIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -62,6 +69,7 @@ export interface FileRoutesByTo {
   '/proposals': typeof ProposalsIndexRoute
   '/settings': typeof SettingsIndexRoute
   '/templates': typeof TemplatesIndexRoute
+  '/test': typeof TestIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -71,6 +79,7 @@ export interface FileRoutesById {
   '/proposals/': typeof ProposalsIndexRoute
   '/settings/': typeof SettingsIndexRoute
   '/templates/': typeof TemplatesIndexRoute
+  '/test/': typeof TestIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -81,8 +90,16 @@ export interface FileRouteTypes {
     | '/proposals'
     | '/settings'
     | '/templates'
+    | '/test'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/landing' | '/jobs' | '/proposals' | '/settings' | '/templates'
+  to:
+    | '/'
+    | '/landing'
+    | '/jobs'
+    | '/proposals'
+    | '/settings'
+    | '/templates'
+    | '/test'
   id:
     | '__root__'
     | '/'
@@ -91,6 +108,7 @@ export interface FileRouteTypes {
     | '/proposals/'
     | '/settings/'
     | '/templates/'
+    | '/test/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -100,6 +118,7 @@ export interface RootRouteChildren {
   ProposalsIndexRoute: typeof ProposalsIndexRoute
   SettingsIndexRoute: typeof SettingsIndexRoute
   TemplatesIndexRoute: typeof TemplatesIndexRoute
+  TestIndexRoute: typeof TestIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -116,6 +135,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/test/': {
+      id: '/test/'
+      path: '/test'
+      fullPath: '/test'
+      preLoaderRoute: typeof TestIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/templates/': {
@@ -156,6 +182,7 @@ const rootRouteChildren: RootRouteChildren = {
   ProposalsIndexRoute: ProposalsIndexRoute,
   SettingsIndexRoute: SettingsIndexRoute,
   TemplatesIndexRoute: TemplatesIndexRoute,
+  TestIndexRoute: TestIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
