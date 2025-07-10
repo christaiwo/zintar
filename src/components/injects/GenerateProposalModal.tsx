@@ -260,6 +260,21 @@ const GenerateProposalModal: FC<GenerateProposalModalProps> = () => {
                 Use this area to combine text and AI prompts/snippets to create
                 a unique cover letter template. Click the help icon (
               </textarea>
+
+              <div className="w-full grid grid-cols-2 my-2 gap-2">
+                <div
+                  onClick={toggleModal}
+                  className="border rounded-md p-2 flex items-center justify-center"
+                >
+                  Cancel
+                </div>
+                <div
+                  onClick={() => {}}
+                  className="border bg-green-600 text-white rounded-md p-2 flex items-center justify-center"
+                >
+                  Insert
+                </div>
+              </div>
             </div>
 
             {/* Right Section: Job Description */}
