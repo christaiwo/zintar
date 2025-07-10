@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import Tabs from "./components/Tabs";
-import JobCard from "./components/JobCard";
+import Tabs from "../../components/jobs/Tabs";
+import JobCard from "../../components/jobs/JobCard";
 
 export const Route = createFileRoute("/jobs/")({
   component: RouteComponent,
