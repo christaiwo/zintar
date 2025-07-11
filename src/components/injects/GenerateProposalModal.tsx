@@ -1,4 +1,4 @@
-import { type FC, useState } from "react";
+import { type FC, useEffect, useState } from "react";
 import "./../../index.css";
 import CustomSelect from "./components/CustomSelect";
 import { X } from "lucide-react";
@@ -8,6 +8,13 @@ interface GenerateProposalModalProps {}
 
 const GenerateProposalModal: FC<GenerateProposalModalProps> = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [jobInfo, setJobInfo] = useState<{
+    title: string;
+    description: string;
+  }>({
+    title: "",
+    description: "",
+  });
 
   const toggleModal = () => {
     setIsOpen(!isOpen);
@@ -19,6 +26,35 @@ const GenerateProposalModal: FC<GenerateProposalModalProps> = () => {
 
   const options = [{ label: "Default", value: "1" }];
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const seeMoreBtn: any = document.querySelector(
+        'button.air3-truncation-btn[aria-controls="air3-truncation-1"]'
+      );
+
+      // Click "See more" if truncated
+      if (seeMoreBtn && seeMoreBtn.getAttribute("aria-expanded") === "false") {
+        seeMoreBtn?.click();
+      }
+
+      // Wait for content to expand
+      setTimeout(() => {
+        const titleEl = document.querySelector("h3.h5");
+        const descriptionEl = document.getElementById("air3-truncation-1");
+
+        const title = titleEl?.textContent?.trim() || "";
+        const description = descriptionEl?.innerText?.trim() || "";
+
+        // Set state if we have enough content
+        if (title && description.length > 100) {
+          setJobInfo({ title, description });
+          clearInterval(interval);
+        }
+      }, 500);
+    }, 800); // Poll every 800ms to allow async loading
+
+    return () => clearInterval(interval);
+  }, []);
   return (
     <>
       <button
@@ -96,7 +132,7 @@ const GenerateProposalModal: FC<GenerateProposalModalProps> = () => {
               {/* Right Section: Job Description */}
               <div className="w-96 border-l border-gray-200 p-6 flex flex-col  overflow-y-auto">
                 <p className="text-lg font-semibold text-gray-800 mb-4">
-                  Odoo Admin/Engineer (Python & Database Management)
+                  {jobInfo.title}
                 </p>
                 <p className="text-sm text-gray-500 mb-6">
                   Posted: Jul 10, 2025
@@ -107,7 +143,7 @@ const GenerateProposalModal: FC<GenerateProposalModalProps> = () => {
                     Job Description
                   </p>
                   <div className="text-sm text-gray-600">
-                    <p>We are looking for an experienced</p>
+                    <p>{jobInfo.description}</p>
                   </div>
                 </div>
               </div>
